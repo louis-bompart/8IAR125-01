@@ -21,5 +21,6 @@ Improve the *WestWorldWithMessaging* program from Mat Buckland by including an a
 Use Boost 1.61.0 library and my repo [PGAIBE_Common](https://github.com/louis-bompart/PGAIBE_Common) (Download them and add them as includes directory in the project configuration)
 
 #Bibliography
-[1] [Artificial Intelligence for Video Game](http://cours.uqac.ca/8IAR125) course description at uqac [FR]
+[1] [Artificial Intelligence for Video Game](http://cours.uqac.ca/8IAR125) Course description from UQAC [FR]
+
 [2] Buckland, Mat. "State-Driven Agent Design." Programming Game AI by Example. Plano, TX: Wordware Pub., 2005. 83. Print.
