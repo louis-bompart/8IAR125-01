@@ -1,5 +1,7 @@
 #include <fstream>
 #include <time.h>
+#include <thread>
+#include <vector>
 
 #include "Locations.h"
 #include "Miner.h"
@@ -32,12 +34,17 @@ int main()
   EntityMgr->RegisterEntity(Bob);
   EntityMgr->RegisterEntity(Elsa);
 
+  std::vector<std::thread> threads;
   //run Bob and Elsa through a few Update calls
   for (int i=0; i<30; ++i)
-  { 
-    Bob->Update();
-    Elsa->Update();
-
+  {
+	  threads.push_back(Bob->UpdateT());
+	  threads.push_back(Elsa->UpdateT());
+	  while (!threads.empty())
+	  {
+		  threads.back().join();
+		  threads.pop_back();
+	  }
     //dispatch any delayed messages
     Dispatch->DispatchDelayedMessages();
 

@@ -10,6 +10,7 @@
 //
 //------------------------------------------------------------------------
 #include <string>
+#include <thread>
 
 #include "messaging/Telegram.h"
 
@@ -37,6 +38,10 @@ public:
   BaseGameEntity(int id)
   {
     SetID(id);
+  }
+
+  std::thread UpdateT() {
+	  return std::thread(&BaseGameEntity::Update, this);
   }
 
   virtual ~BaseGameEntity(){}
