@@ -2,6 +2,7 @@
 #include <time.h>
 #include <thread>
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 #include "Locations.h"
 #include "Miner.h"
