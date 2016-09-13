@@ -32,7 +32,7 @@ void DrinkInTheBar::Enter(Drinker* drinker)
 {
 	if (drinker->Location() != saloon)
 	{
-		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Walkin' to the saloon";
+		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Startin' to drink";
 
 		drinker->ChangeLocation(saloon);
 	}
@@ -48,33 +48,32 @@ void DrinkInTheBar::Execute(Drinker* drinker)
 void DrinkInTheBar::Exit(Drinker* drinker)
 {
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": "
-		<< "I'm leaving the saloon !";
+		<< "I'm stopping from drinking !";
 }
 
 
 bool DrinkInTheBar::OnMessage(Drinker* drinker, const Telegram& msg)
 {
-	/*SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	SetTextColor(BACKGROUND_BLUE | FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
 	switch (msg.Msg)
 	{
-	case Msg_StewReady:
+	case Msg_BobIsInTheBar:
 
-		cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID())
+		cout << "\nMessage handled by " << GetNameOfEntity(drinker->ID())
 			<< " at time: " << Clock->GetCurrentTime();
 
-		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+		SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
-		cout << "\n" << GetNameOfEntity(pMiner->ID())
-			<< ": Okay Hun, ahm a comin'!";
+		cout << "\n" << GetNameOfEntity(drinker->ID())
+			<< ": Oh no Bob is here, i want to hurt him so bad with no reason '!";
 
-		pMiner->GetFSM()->ChangeState(Fight::Instance());
+		drinker->GetFSM()->ChangeState(Fight::Instance());
 
 		return true;
 
-	}//end switch
-	*/
-	//send msg to global message handler
+	}
+	
 	return false;
 }
 
@@ -89,18 +88,25 @@ Fight* Fight::Instance()
 
 void Fight::Enter(Drinker* drinker)
 {
-	if (drinker->Location() != saloon)
-	{
-		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Startin' to fight with Bob";
+	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Startin' to fight with Bob";
 
-		drinker->ChangeLocation(saloon);
-	}
+	drinker->ChangeLocation(saloon);
+
+	//let Bob know I'm angry
+	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+		drinker->ID(),        //ID of sender
+		ent_Miner_Bob,            //ID of recipient
+		Msg_LouisIsAngry,   //the message
+		NO_ADDITIONAL_INFO);
+
 }
 
 
 void Fight::Execute(Drinker* drinker)
 {
+	//drinker->Fight();
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Fightin' with Bob";
+	drinker->GetFSM()->ChangeState(GoHomeAndRest::Instance());
 }
 
 
@@ -108,6 +114,13 @@ void Fight::Exit(Drinker* drinker)
 {
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": "
 		<< "I'm bored, I think I'll go home now !";
+
+	//let Bob know I'm ok now
+	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+		drinker->ID(),        //ID of sender
+		ent_Miner_Bob,            //ID of recipient
+		Msg_EndOfFight,   //the message
+		NO_ADDITIONAL_INFO);
 }
 
 
@@ -141,6 +154,11 @@ void GoHomeAndRest::Execute(Drinker* drinker)
 {
 	drinker->IncreaseThirst();
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Snorin'";
+
+	if (drinker->Thirsty())
+	{
+		drinker->GetFSM()->ChangeState(DrinkInTheBar::Instance());
+	}
 }
 
 
@@ -149,10 +167,6 @@ void GoHomeAndRest::Exit(Drinker* drinker)
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": "
 		<< "I'm Thirsty, I think I'll go to the saloon now !";
 	
-	if (drinker->Thirsty())
-	{
-		drinker->GetFSM()->ChangeState(DrinkInTheBar::Instance());
-	}
 }
 
 

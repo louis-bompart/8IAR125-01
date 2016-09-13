@@ -230,6 +230,13 @@ void QuenchThirst::Enter(Miner* pMiner)
     pMiner->ChangeLocation(saloon);
 
     cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Boy, ah sure is thusty! Walking to the saloon";
+
+	//let Louis know I'm in the saloon
+	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
+		pMiner->ID(),        //ID of sender
+		ent_Louis,            //ID of recipient
+		Msg_BobIsInTheBar,   //the message
+		NO_ADDITIONAL_INFO);
   }
 }
 
@@ -240,19 +247,94 @@ void QuenchThirst::Execute(Miner* pMiner)
   cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "That's mighty fine sippin' liquer";
 
   pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());  
+//  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Leavin' the bar";
+
 }
 
 
 void QuenchThirst::Exit(Miner* pMiner)
 { 
-  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Leaving the saloon, feelin' good";
+  cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Stoppin' from drinking";
 }
 
 
 bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 {
-  //send msg to global message handler
+	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+	switch (msg.Msg)
+	{
+	case Msg_LouisIsAngry:
+
+		cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID())
+			<< " at time: " << Clock->GetCurrentTime();
+
+		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+		cout << "\n" << GetNameOfEntity(pMiner->ID())
+			<< ": I'll Fight !";
+
+		pMiner->GetFSM()->ChangeState(FightBob::Instance());
+
+		return true;
+
+	}//end switch
+
   return false;
+}
+
+//------------------------------------------------------------------------Fight
+
+FightBob* FightBob::Instance()
+{
+	static FightBob instance;
+
+	return &instance;
+}
+
+void FightBob::Enter(Miner* pMiner)
+{
+
+}
+
+void FightBob::Execute(Miner* pMiner)
+{
+	//pMiner->Fight();
+
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Fightin' like a baws";
+
+}
+
+
+void FightBob::Exit(Miner* pMiner)
+{
+	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Stoppin' from fighting";
+}
+
+
+bool FightBob::OnMessage(Miner* pMiner, const Telegram& msg)
+{
+	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+
+	switch (msg.Msg)
+	{
+	case Msg_EndOfFight:
+
+		cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID())
+			<< " at time: " << Clock->GetCurrentTime();
+
+		SetTextColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
+
+		cout << "\n" << GetNameOfEntity(pMiner->ID())
+			<< ": Stop Fight !";
+
+		pMiner->GetFSM()->ChangeState(QuenchThirst::Instance());
+
+		return true;
+
+	}//end switch
+
+	return false;
 }
 
 //------------------------------------------------------------------------EatStew
