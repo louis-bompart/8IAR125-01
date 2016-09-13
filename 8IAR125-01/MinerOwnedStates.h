@@ -172,7 +172,34 @@ public:
   virtual bool OnMessage(Miner* agent, const Telegram& msg);
 };
 
+//------------------------------------------------------------------------
+//
+//  miner will fight with Louis
+//  until Louis decide to stop
+//------------------------------------------------------------------------
+class FightBob : public State<Miner>
+{
+private:
 
+	FightBob() {}
+
+	//copy ctor and assignment should be private
+	FightBob(const FightBob&);
+	FightBob& operator=(const FightBob&);
+
+public:
+
+	//this is a singleton
+	static FightBob* Instance();
+
+	virtual void Enter(Miner* miner);
+
+	virtual void Execute(Miner* miner);
+
+	virtual void Exit(Miner* miner);
+
+	virtual bool OnMessage(Miner* agent, const Telegram& msg);
+};
 
 
 #endif
