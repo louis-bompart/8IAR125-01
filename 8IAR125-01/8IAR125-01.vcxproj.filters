@@ -39,6 +39,12 @@
     <ClCompile Include="MinersWifeOwnedStates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Drinker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrinkerOwnedStates.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseGameEntity.h">
@@ -69,6 +75,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MinersWifeOwnedStates.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Drinker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrinkerOwnedStates.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -105,7 +105,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\lib\boost_1_61_0;C:\lib\PGAIBE_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\workspace\IAR\TP1\common;C:\lib\PGAIBE_Common;C:\lib\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +150,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseGameEntity.cpp" />
+    <ClCompile Include="Drinker.cpp" />
+    <ClCompile Include="DrinkerOwnedStates.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MessageDispatcher.cpp" />
@@ -160,6 +162,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseGameEntity.h" />
+    <ClInclude Include="Drinker.h" />
+    <ClInclude Include="DrinkerOwnedStates.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="EntityNames.h" />
     <ClInclude Include="Locations.h" />
