@@ -6,6 +6,7 @@
 #include "Locations.h"
 #include "Miner.h"
 #include "MinersWife.h"
+#include "Drinker.h"
 #include "EntityManager.h"
 #include "MessageDispatcher.h"
 #include "misc/ConsoleUtils.h"
@@ -30,9 +31,13 @@ int main()
   //create his wife
   MinersWife* Elsa = new MinersWife(ent_Elsa);
 
+  //create Louis
+  Drinker* Louis = new Drinker(ent_Louis);
+
   //register them with the entity manager
   EntityMgr->RegisterEntity(Bob);
   EntityMgr->RegisterEntity(Elsa);
+  EntityMgr->RegisterEntity(Louis);
 
   std::vector<std::thread> threads;
   //run Bob and Elsa through a few Update calls
@@ -40,6 +45,7 @@ int main()
   {
 	  threads.push_back(Bob->UpdateT());
 	  threads.push_back(Elsa->UpdateT());
+	  threads.push_back(Louis->UpdateT());
 	  while (!threads.empty())
 	  {
 		  threads.back().join();
@@ -54,16 +60,10 @@ int main()
   //tidy up
   delete Bob;
   delete Elsa;
+  delete Louis;
 
   //wait for a keypress before exiting
   PressAnyKeyToContinue();
 
-
   return 0;
 }
-
-
-
-
-
-
