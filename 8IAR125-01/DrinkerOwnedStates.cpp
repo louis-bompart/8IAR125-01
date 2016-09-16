@@ -32,6 +32,7 @@ void DrinkInTheBar::Enter(Drinker* drinker)
 {
 	if (drinker->Location() != saloon)
 	{
+		drinker->Sleep();
 		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Startin' to drink";
 
 		drinker->ChangeLocation(saloon);
@@ -104,9 +105,13 @@ void Fight::Enter(Drinker* drinker)
 
 void Fight::Execute(Drinker* drinker)
 {
-	//drinker->Fight();
-	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Fightin' with Bob";
-	drinker->GetFSM()->ChangeState(GoHomeAndRest::Instance());
+	if (drinker->Fighty()) {
+		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Fightin' with Bob";
+		drinker->DecreaseLife();
+	}
+	else {
+		drinker->GetFSM()->ChangeState(GoHomeAndRest::Instance());
+	}
 }
 
 
@@ -154,8 +159,9 @@ void GoHomeAndRest::Execute(Drinker* drinker)
 {
 	drinker->IncreaseThirst();
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Snorin'";
+	drinker->IncreaseLife();
 
-	if (drinker->Thirsty())
+	if (drinker->Rested())
 	{
 		drinker->GetFSM()->ChangeState(DrinkInTheBar::Instance());
 	}

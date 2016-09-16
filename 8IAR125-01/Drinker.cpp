@@ -22,3 +22,16 @@ bool Drinker::Thirsty()const
 	return false;
 }
 
+bool Drinker::Fighty()const
+{
+	if (m_Life > 0) { return true;  }
+
+	return false;
+}
+
+bool Drinker::Rested()const
+{
+	if (m_Life >= MaxHealth_drinker) { return true; }
+
+	return false;
+}

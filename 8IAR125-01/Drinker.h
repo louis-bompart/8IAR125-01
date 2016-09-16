@@ -17,6 +17,7 @@ struct Telegram;
 
 //above this value a miner is thirsty
 const int ThirstLevel_drinker = 3;
+const int MaxHealth_drinker = 5;
 
 class Drinker : public BaseGameEntity
 {
@@ -29,6 +30,9 @@ private:
 
 	//the higher the value, the thirstier the miner
 	int                   m_iThirst;
+
+	//How bad the drinker wants to fight
+	int					  m_Life;
 
 
 public:
@@ -64,6 +68,13 @@ public:
 	void          IncreaseThirst() { m_iThirst += 1; }
 
 	void          DrinkAWhiskey() { m_iThirst = 0; }
+
+	bool		  Fighty()const;
+	void		  DecreaseLife() { m_Life--; }
+	void		  IncreaseLife() { m_Life++; }
+
+	bool	      Rested()const;
+	void		  Sleep() { m_Life = 5; }
 
 };
 
