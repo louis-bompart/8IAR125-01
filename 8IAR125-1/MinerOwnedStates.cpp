@@ -7,6 +7,7 @@
 #include "MessageTypes.h"
 #include "Time/CrudeTimer.h"
 #include "EntityNames.h"
+#include "myclass.h"
 
 #include <iostream>
 using std::cout;

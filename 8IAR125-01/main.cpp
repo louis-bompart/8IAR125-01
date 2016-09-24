@@ -2,6 +2,8 @@
 #include <time.h>
 #include <thread>
 #include <vector>
+#include <QtWidgets/QApplication>
+
 
 #include "Locations.h"
 #include "Miner.h"
@@ -11,16 +13,24 @@
 #include "MessageDispatcher.h"
 #include "misc/ConsoleUtils.h"
 #include "EntityNames.h"
+#include "myclass.h"
+
 
 
 std::ofstream os;
 
-int main()
+int main(int argc, char *argv[])
 {
 //define this to send output to a text file (see locations.h)
 #ifdef TEXTOUTPUT
   os.open("output.txt");
 #endif
+  /*QT*/
+  QApplication a(argc, argv);
+  MyClass w;
+  w.show();
+  return a.exec();
+
 
   //seed random number generator
   srand((unsigned) time(NULL));

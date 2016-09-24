@@ -13,7 +13,21 @@ public:
 	~MyClass();
 
 private:
-	Ui::MyClassClass ui;
+	void initializeInterface();
+	void initializeStates();
+	void initializeMessages();
+
+private:
+	QWidget *main_widget;
+	QWidget *states;
+	QWidget *messages;
+
+	QLayout *main_layout;
+
+	QLabel *m_thirst_level;
+	QLabel *m_location;
+
+	QPlainTextEdit *messages_show;
 };
 
 #endif // MYCLASS_H
