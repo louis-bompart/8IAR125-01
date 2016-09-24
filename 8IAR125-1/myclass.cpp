@@ -21,6 +21,7 @@ MyClass::~MyClass()
 void MyClass::initializeStates() {
 	m_thirst_level = new QLabel("0");
 	m_location = new QLabel("Lalala");
+	m_location->setText("Miner : home");
 
 	main_layout->addWidget(m_thirst_level);
 	main_layout->addWidget(m_location);
