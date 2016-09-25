@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{E9D2B253-D81B-4389-9E6D-DC90F94BB6FD}</ProjectGuid>
+    <ProjectGuid>{356F8CE8-F5FE-44EE-92BB-29B79E7A2308}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>My8IAR12501</RootNamespace>
+    <RootNamespace>GUI</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -87,14 +87,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>
-      </SDLCheck>
-      <AdditionalIncludeDirectories>C:\lib\boost\boost_1_61_0;C:\lib\PGAIBE_Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\lib\boost\boost_1_61_0;..\lib\PGAIBE_Common;$(AWE_DIR)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>awesomium.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(AWE_DIR)build\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -122,11 +123,11 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -149,25 +150,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(AWE_DIR)build\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>awesomium.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="application_win.cc" />
-    <ClCompile Include="BaseGameEntity.cpp" />
-    <ClCompile Include="Drinker.cpp" />
-    <ClCompile Include="DrinkerOwnedStates.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
-    <ClCompile Include="main.cc" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MessageDispatcher.cpp" />
-    <ClCompile Include="Miner.cpp" />
-    <ClCompile Include="MinerOwnedStates.cpp" />
-    <ClCompile Include="MinersWife.cpp" />
-    <ClCompile Include="MinersWifeOwnedStates.cpp" />
-    <ClCompile Include="view_win.cc" />
-  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
     <ClInclude Include="BaseGameEntity.h" />
@@ -185,6 +169,20 @@
     <ClInclude Include="MinersWife.h" />
     <ClInclude Include="MinersWifeOwnedStates.h" />
     <ClInclude Include="view.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="application_win.cc" />
+    <ClCompile Include="BaseGameEntity.cpp" />
+    <ClCompile Include="Drinker.cpp" />
+    <ClCompile Include="DrinkerOwnedStates.cpp" />
+    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="main.cc" />
+    <ClCompile Include="MessageDispatcher.cpp" />
+    <ClCompile Include="Miner.cpp" />
+    <ClCompile Include="MinerOwnedStates.cpp" />
+    <ClCompile Include="MinersWife.cpp" />
+    <ClCompile Include="MinersWifeOwnedStates.cpp" />
+    <ClCompile Include="view_win.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
