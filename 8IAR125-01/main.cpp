@@ -1,3 +1,6 @@
+#include <Awesomium/WebCore.h>
+#include <Awesomium/STLHelpers.h>
+
 #include <fstream>
 #include <time.h>
 #include <thread>
@@ -14,56 +17,58 @@
 
 
 std::ofstream os;
-
+using namespace Awesomium;
 int main()
 {
-//define this to send output to a text file (see locations.h)
+	//define this to send output to a text file (see locations.h)
 #ifdef TEXTOUTPUT
-  os.open("output.txt");
+	os.open("output.txt");
 #endif
 
-  //seed random number generator
-  srand((unsigned) time(NULL));
+	WebCore* web_core = WebCore::Initialize(WebConfig());
 
-  //create a miner
-  Miner* Bob = new Miner(ent_Miner_Bob);
+	//seed random number generator
+	srand((unsigned)time(NULL));
 
-  //create his wife
-  MinersWife* Elsa = new MinersWife(ent_Elsa);
+	//create a miner
+	Miner* Bob = new Miner(ent_Miner_Bob);
 
-  //create Louis
-  Drinker* Louis = new Drinker(ent_Louis);
+	//create his wife
+	MinersWife* Elsa = new MinersWife(ent_Elsa);
 
-  //register them with the entity manager
-  EntityMgr->RegisterEntity(Bob);
-  EntityMgr->RegisterEntity(Elsa);
-  EntityMgr->RegisterEntity(Louis);
+	//create Louis
+	Drinker* Louis = new Drinker(ent_Louis);
 
-  std::vector<std::thread> threads;
-  //run Bob and Elsa through a few Update calls
-  for (int i=0; i<30; ++i)
-  {
-	  threads.push_back(Bob->UpdateT());
-	  threads.push_back(Elsa->UpdateT());
-	  threads.push_back(Louis->UpdateT());
-	  while (!threads.empty())
-	  {
-		  threads.back().join();
-		  threads.pop_back();
-	  }
-    //dispatch any delayed messages
-    Dispatch->DispatchDelayedMessages();
+	//register them with the entity manager
+	EntityMgr->RegisterEntity(Bob);
+	EntityMgr->RegisterEntity(Elsa);
+	EntityMgr->RegisterEntity(Louis);
 
-    Sleep(800);
-  }
+	std::vector<std::thread> threads;
+	//run Bob and Elsa through a few Update calls
+	for (int i = 0; i < 30; ++i)
+	{
+		threads.push_back(Bob->UpdateT());
+		threads.push_back(Elsa->UpdateT());
+		threads.push_back(Louis->UpdateT());
+		while (!threads.empty())
+		{
+			threads.back().join();
+			threads.pop_back();
+		}
+		//dispatch any delayed messages
+		Dispatch->DispatchDelayedMessages();
+		web_core->Update();
+		Sleep(800);
+	}
 
-  //tidy up
-  delete Bob;
-  delete Elsa;
-  delete Louis;
+	//tidy up
+	delete Bob;
+	delete Elsa;
+	delete Louis;
 
-  //wait for a keypress before exiting
-  PressAnyKeyToContinue();
-
-  return 0;
+	//wait for a keypress before exiting
+	PressAnyKeyToContinue();
+	WebCore::Shutdown();
+	return 0;
 }
