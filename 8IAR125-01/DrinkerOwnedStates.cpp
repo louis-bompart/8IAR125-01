@@ -7,6 +7,7 @@
 #include "MessageTypes.h"
 #include "Time/CrudeTimer.h"
 #include "EntityNames.h"
+#include "CoutMutex.h"
 
 #include <iostream>
 using std::cout;
@@ -33,8 +34,12 @@ void DrinkInTheBar::Enter(Drinker* drinker)
 	if (drinker->Location() != saloon)
 	{
 		drinker->Sleep();
+		while (CoutLock->Lock())
+		{
+			Sleep(100);
+		}
 		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Startin' to drink";
-
+		CoutLock->Unlock();
 		drinker->ChangeLocation(saloon);
 	}
 }
@@ -42,14 +47,24 @@ void DrinkInTheBar::Enter(Drinker* drinker)
 
 void DrinkInTheBar::Execute(Drinker* drinker)
 {
+	while (CoutLock->Lock())
+	{
+		Sleep(100);
+	}
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Drinkin' a whiskey";
+	CoutLock->Unlock();
 }
 
 
 void DrinkInTheBar::Exit(Drinker* drinker)
 {
+	while (CoutLock->Lock())
+	{
+		Sleep(100);
+	}
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": "
 		<< "I'm stopping from drinking !";
+	CoutLock->Unlock();
 }
 
 
@@ -60,15 +75,22 @@ bool DrinkInTheBar::OnMessage(Drinker* drinker, const Telegram& msg)
 	switch (msg.Msg)
 	{
 	case Msg_BobIsInTheBar:
-
+		while (CoutLock->Lock())
+		{
+			Sleep(100);
+		}
 		cout << "\nMessage handled by " << GetNameOfEntity(drinker->ID())
 			<< " at time: " << Clock->GetCurrentTime();
-
+		CoutLock->Unlock();
 		SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
+		while (CoutLock->Lock())
+		{
+			Sleep(100);
+		}
 		cout << "\n" << GetNameOfEntity(drinker->ID())
 			<< ": Oh no Bob is here, i want to hurt him so bad with no reason '!";
-
+		CoutLock->Unlock();
 		drinker->GetFSM()->ChangeState(Fight::Instance());
 
 		return true;
@@ -89,8 +111,12 @@ Fight* Fight::Instance()
 
 void Fight::Enter(Drinker* drinker)
 {
+	while (CoutLock->Lock())
+	{
+		Sleep(100);
+	}
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Startin' to fight with Bob";
-
+	CoutLock->Unlock();
 	drinker->ChangeLocation(saloon);
 
 	//let Bob know I'm angry
@@ -106,7 +132,12 @@ void Fight::Enter(Drinker* drinker)
 void Fight::Execute(Drinker* drinker)
 {
 	if (drinker->Fighty()) {
+		while (CoutLock->Lock())
+		{
+			Sleep(100);
+		}
 		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Fightin' with Bob";
+		CoutLock->Unlock();
 		drinker->DecreaseLife();
 	}
 	else {
@@ -117,9 +148,13 @@ void Fight::Execute(Drinker* drinker)
 
 void Fight::Exit(Drinker* drinker)
 {
+	while (CoutLock->Lock())
+	{
+		Sleep(100);
+	}
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": "
 		<< "I'm bored, I think I'll go home now !";
-
+	CoutLock->Unlock();
 	//let Bob know I'm ok now
 	Dispatch->DispatchMessage(SEND_MSG_IMMEDIATELY, //time delay
 		drinker->ID(),        //ID of sender
@@ -148,8 +183,12 @@ void GoHomeAndRest::Enter(Drinker* drinker)
 {
 	if (drinker->Location() != saloon)
 	{
+		while (CoutLock->Lock())
+		{
+			Sleep(100);
+		}
 		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Home, sweet home";
-
+		CoutLock->Unlock();
 		drinker->ChangeLocation(saloon);
 	}
 }
@@ -158,7 +197,12 @@ void GoHomeAndRest::Enter(Drinker* drinker)
 void GoHomeAndRest::Execute(Drinker* drinker)
 {
 	drinker->IncreaseThirst();
+	while (CoutLock->Lock())
+	{
+		Sleep(100);
+	}
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Snorin'";
+	CoutLock->Unlock();
 	drinker->IncreaseLife();
 
 	if (drinker->Rested())
@@ -170,9 +214,13 @@ void GoHomeAndRest::Execute(Drinker* drinker)
 
 void GoHomeAndRest::Exit(Drinker* drinker)
 {
+	while (CoutLock->Lock())
+	{
+		Sleep(100);
+	}
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": "
 		<< "I'm Thirsty, I think I'll go to the saloon now !";
-	
+	CoutLock->Unlock();
 }
 
 
