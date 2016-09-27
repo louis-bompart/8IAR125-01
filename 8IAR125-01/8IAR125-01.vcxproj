@@ -150,6 +150,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseGameEntity.cpp" />
+    <ClCompile Include="CoutMutex.cpp" />
     <ClCompile Include="Drinker.cpp" />
     <ClCompile Include="DrinkerOwnedStates.cpp" />
     <ClCompile Include="EntityManager.cpp" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseGameEntity.h" />
+    <ClInclude Include="CoutMutex.h" />
     <ClInclude Include="Drinker.h" />
     <ClInclude Include="DrinkerOwnedStates.h" />
     <ClInclude Include="EntityManager.h" />
