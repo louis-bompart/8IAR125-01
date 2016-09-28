@@ -8,8 +8,6 @@ bool Drinker::HandleMessage(const Telegram& msg)
 
 void Drinker::Update()
 {
-	SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-
 	m_iThirst += 1;
 
 	m_pStateMachine->Update();

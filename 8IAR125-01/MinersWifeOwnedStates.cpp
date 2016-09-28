@@ -40,7 +40,7 @@ void WifesGlobalState::Execute(MinersWife* wife)
 
 bool WifesGlobalState::OnMessage(MinersWife* wife, const Telegram& msg)
 {
-	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	
 
 	switch (msg.Msg)
 	{
@@ -50,6 +50,7 @@ bool WifesGlobalState::OnMessage(MinersWife* wife, const Telegram& msg)
 		{
 			Sleep(100);
 		}
+		SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		cout << "\nMessage handled by " << GetNameOfEntity(wife->ID()) << " at time: "
 			<< Clock->GetCurrentTime();
 
@@ -60,7 +61,7 @@ bool WifesGlobalState::OnMessage(MinersWife* wife, const Telegram& msg)
 		CoutLock->Unlock();
 		wife->GetFSM()->ChangeState(CookStew::Instance());
 
-		
+
 	}
 
 	return true;
@@ -97,6 +98,7 @@ void DoHouseWork::Execute(MinersWife* wife)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_RED);
 	switch (RandInt(0, 2))
 	{
 	case 0:
@@ -145,6 +147,7 @@ void VisitBathroom::Enter(MinersWife* wife)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_RED);
 	cout << "\n" << GetNameOfEntity(wife->ID()) << ": Walkin' to the can. Need to powda mah pretty li'lle nose";
 	CoutLock->Unlock();
 }
@@ -156,6 +159,7 @@ void VisitBathroom::Execute(MinersWife* wife)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_RED);
 	cout << "\n" << GetNameOfEntity(wife->ID()) << ": Ahhhhhh! Sweet relief!";
 	CoutLock->Unlock();
 	wife->GetFSM()->RevertToPreviousState();
@@ -167,6 +171,7 @@ void VisitBathroom::Exit(MinersWife* wife)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_RED);
 	cout << "\n" << GetNameOfEntity(wife->ID()) << ": Leavin' the Jon";
 	CoutLock->Unlock();
 }
@@ -197,6 +202,7 @@ void CookStew::Enter(MinersWife* wife)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_RED);
 		cout << "\n" << GetNameOfEntity(wife->ID()) << ": Putting the stew in the oven";
 		CoutLock->Unlock();
 		//send a delayed message myself so that I know when to take the stew
@@ -218,6 +224,7 @@ void CookStew::Execute(MinersWife* wife)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_RED);
 	cout << "\n" << GetNameOfEntity(wife->ID()) << ": Fussin' over food";
 	CoutLock->Unlock();
 }
@@ -228,7 +235,6 @@ void CookStew::Exit(MinersWife* wife)
 	{
 		Sleep(100);
 	}
-	SetTextColor(FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 
 	cout << "\n" << GetNameOfEntity(wife->ID()) << ": Puttin' the stew on the table";
 	CoutLock->Unlock();

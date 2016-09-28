@@ -39,6 +39,7 @@ void EnterMineAndDigForNugget::Enter(Miner* pMiner)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Walkin' to the goldmine";
 		CoutLock->Unlock();
 
@@ -60,6 +61,7 @@ void EnterMineAndDigForNugget::Execute(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Pickin' up a nugget";
 	CoutLock->Unlock();
 	//if enough gold mined, go and put it in the bank
@@ -81,6 +83,7 @@ void EnterMineAndDigForNugget::Exit(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": "
 		<< "Ah'm leavin' the goldmine with mah pockets full o' sweet gold";
 	CoutLock->Unlock();
@@ -111,6 +114,7 @@ void VisitBankAndDepositGold::Enter(Miner* pMiner)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Goin' to the bank. Yes siree";
 		CoutLock->Unlock();
 		pMiner->ChangeLocation(bank);
@@ -128,6 +132,7 @@ void VisitBankAndDepositGold::Execute(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": "
 		<< "Depositing gold. Total savings now: " << pMiner->Wealth();
 	CoutLock->Unlock();
@@ -138,6 +143,7 @@ void VisitBankAndDepositGold::Execute(Miner* pMiner)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": "
 			<< "WooHoo! Rich enough for now. Back home to mah li'lle lady";
 		CoutLock->Unlock();
@@ -158,6 +164,7 @@ void VisitBankAndDepositGold::Exit(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Leavin' the bank";
 	CoutLock->Unlock();
 }
@@ -185,6 +192,7 @@ void GoHomeAndSleepTilRested::Enter(Miner* pMiner)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Walkin' home";
 		CoutLock->Unlock();
 		pMiner->ChangeLocation(shack);
@@ -207,6 +215,7 @@ void GoHomeAndSleepTilRested::Execute(Miner* pMiner)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": "
 			<< "All mah fatigue has drained away. Time to find more gold!";
 		CoutLock->Unlock();
@@ -221,6 +230,7 @@ void GoHomeAndSleepTilRested::Execute(Miner* pMiner)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "ZZZZ... ";
 		CoutLock->Unlock();
 	}
@@ -233,7 +243,7 @@ void GoHomeAndSleepTilRested::Exit(Miner* pMiner)
 
 bool GoHomeAndSleepTilRested::OnMessage(Miner* pMiner, const Telegram& msg)
 {
-	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	
 
 	switch (msg.Msg)
 	{
@@ -242,6 +252,7 @@ bool GoHomeAndSleepTilRested::OnMessage(Miner* pMiner, const Telegram& msg)
 		{
 			Sleep(100);
 		}
+		SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID())
 			<< " at time: " << Clock->GetCurrentTime();
 
@@ -277,6 +288,7 @@ void QuenchThirst::Enter(Miner* pMiner)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 		cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Boy, ah sure is thusty! Walking to the saloon";
 		CoutLock->Unlock();
 		//let Louis know I'm in the saloon
@@ -295,6 +307,7 @@ void QuenchThirst::Execute(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "That's mighty fine sippin' liquer";
 	CoutLock->Unlock();
 	pMiner->GetFSM()->ChangeState(EnterMineAndDigForNugget::Instance());
@@ -309,6 +322,7 @@ void QuenchThirst::Exit(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Stoppin' from drinking";
 	CoutLock->Unlock();
 }
@@ -316,7 +330,7 @@ void QuenchThirst::Exit(Miner* pMiner)
 
 bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 {
-	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	
 	switch (msg.Msg)
 	{
 	case Msg_LouisIsAngry:
@@ -324,6 +338,7 @@ bool QuenchThirst::OnMessage(Miner* pMiner, const Telegram& msg)
 		{
 			Sleep(100);
 		}
+		SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		cout << "\nMessage handled by " << GetNameOfEntity(pMiner->ID())
 			<< " at time: " << Clock->GetCurrentTime();
 
@@ -363,6 +378,7 @@ void FightBob::Execute(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Fightin' like a baws";
 	CoutLock->Unlock();
 }
@@ -374,6 +390,7 @@ void FightBob::Exit(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Stoppin' from fighting";
 	CoutLock->Unlock();
 }
@@ -420,6 +437,7 @@ void EatStew::Enter(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Smells Reaaal goood Elsa!";
 	CoutLock->Unlock();
 }
@@ -430,6 +448,7 @@ void EatStew::Execute(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Tastes real good too!";
 	CoutLock->Unlock();
 	pMiner->GetFSM()->RevertToPreviousState();
@@ -441,6 +460,7 @@ void EatStew::Exit(Miner* pMiner)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_GREEN);
 	cout << "\n" << GetNameOfEntity(pMiner->ID()) << ": " << "Thankya li'lle lady. Ah better get back to whatever ah wuz doin'";
 	CoutLock->Unlock();
 }

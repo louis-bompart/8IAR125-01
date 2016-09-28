@@ -38,6 +38,7 @@ void DrinkInTheBar::Enter(Drinker* drinker)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Startin' to drink";
 		CoutLock->Unlock();
 		drinker->ChangeLocation(saloon);
@@ -51,6 +52,7 @@ void DrinkInTheBar::Execute(Drinker* drinker)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Drinkin' a whiskey";
 	CoutLock->Unlock();
 }
@@ -62,6 +64,7 @@ void DrinkInTheBar::Exit(Drinker* drinker)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": "
 		<< "I'm stopping from drinking !";
 	CoutLock->Unlock();
@@ -70,8 +73,6 @@ void DrinkInTheBar::Exit(Drinker* drinker)
 
 bool DrinkInTheBar::OnMessage(Drinker* drinker, const Telegram& msg)
 {
-	SetTextColor(BACKGROUND_BLUE | FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
 	switch (msg.Msg)
 	{
 	case Msg_BobIsInTheBar:
@@ -79,15 +80,16 @@ bool DrinkInTheBar::OnMessage(Drinker* drinker, const Telegram& msg)
 		{
 			Sleep(100);
 		}
+		SetTextColor(BACKGROUND_BLUE | FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		cout << "\nMessage handled by " << GetNameOfEntity(drinker->ID())
 			<< " at time: " << Clock->GetCurrentTime();
 		CoutLock->Unlock();
-		SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
 		while (CoutLock->Lock())
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 		cout << "\n" << GetNameOfEntity(drinker->ID())
 			<< ": Oh no Bob is here, i want to hurt him so bad with no reason '!";
 		CoutLock->Unlock();
@@ -115,6 +117,7 @@ void Fight::Enter(Drinker* drinker)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Startin' to fight with Bob";
 	CoutLock->Unlock();
 	drinker->ChangeLocation(saloon);
@@ -136,6 +139,7 @@ void Fight::Execute(Drinker* drinker)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Fightin' with Bob";
 		CoutLock->Unlock();
 		drinker->DecreaseLife();
@@ -152,6 +156,7 @@ void Fight::Exit(Drinker* drinker)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": "
 		<< "I'm bored, I think I'll go home now !";
 	CoutLock->Unlock();
@@ -187,6 +192,7 @@ void GoHomeAndRest::Enter(Drinker* drinker)
 		{
 			Sleep(100);
 		}
+		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Home, sweet home";
 		CoutLock->Unlock();
 		drinker->ChangeLocation(saloon);
@@ -201,6 +207,7 @@ void GoHomeAndRest::Execute(Drinker* drinker)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Snorin'";
 	CoutLock->Unlock();
 	drinker->IncreaseLife();
@@ -218,6 +225,7 @@ void GoHomeAndRest::Exit(Drinker* drinker)
 	{
 		Sleep(100);
 	}
+	SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 	cout << "\n" << GetNameOfEntity(drinker->ID()) << ": "
 		<< "I'm Thirsty, I think I'll go to the saloon now !";
 	CoutLock->Unlock();
