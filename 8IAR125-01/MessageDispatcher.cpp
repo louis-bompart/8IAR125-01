@@ -61,7 +61,7 @@ void MessageDispatcher::DispatchMessage(double  delay,
 	int    msg,
 	void*  ExtraInfo)
 {
-	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	
 
 	//get pointers to the sender and receiver
 	BaseGameEntity* pSender = EntityMgr->GetEntityFromID(sender);
@@ -74,6 +74,7 @@ void MessageDispatcher::DispatchMessage(double  delay,
 		{
 			Sleep(100);
 		}
+		SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		cout << "\nWarning! No Receiver with ID of " << receiver << " found";
 		CoutLock->Unlock();
 		return;
@@ -89,6 +90,7 @@ void MessageDispatcher::DispatchMessage(double  delay,
 		{
 			Sleep(100);
 		}
+		SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		cout << "\nInstant telegram dispatched at time: " << Clock->GetCurrentTime()
 			<< " by " << GetNameOfEntity(pSender->ID()) << " for " << GetNameOfEntity(pReceiver->ID())
 			<< ". Msg is " << MsgToStr(msg);
@@ -110,6 +112,7 @@ void MessageDispatcher::DispatchMessage(double  delay,
 		{
 			Sleep(100);
 		}
+		SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		cout << "\nDelayed telegram from " << GetNameOfEntity(pSender->ID()) << " recorded at time "
 			<< Clock->GetCurrentTime() << " for " << GetNameOfEntity(pReceiver->ID())
 			<< ". Msg is " << MsgToStr(msg);
@@ -126,7 +129,7 @@ void MessageDispatcher::DispatchMessage(double  delay,
 //------------------------------------------------------------------------
 void MessageDispatcher::DispatchDelayedMessages()
 {
-	SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	
 
 	//get current time
 	double CurrentTime = Clock->GetCurrentTime();
@@ -147,6 +150,7 @@ void MessageDispatcher::DispatchDelayedMessages()
 		{
 			Sleep(100);
 		}
+		SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		cout << "\nQueued telegram ready for dispatch: Sent to "
 			<< GetNameOfEntity(pReceiver->ID()) << ". Msg is " << MsgToStr(telegram.Msg);
 		CoutLock->Unlock();

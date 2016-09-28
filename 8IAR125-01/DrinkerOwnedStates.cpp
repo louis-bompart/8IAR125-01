@@ -80,7 +80,7 @@ bool DrinkInTheBar::OnMessage(Drinker* drinker, const Telegram& msg)
 		{
 			Sleep(100);
 		}
-		SetTextColor(BACKGROUND_BLUE | FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		SetTextColor(BACKGROUND_RED | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 		cout << "\nMessage handled by " << GetNameOfEntity(drinker->ID())
 			<< " at time: " << Clock->GetCurrentTime();
 		CoutLock->Unlock();
@@ -195,7 +195,7 @@ void GoHomeAndRest::Enter(Drinker* drinker)
 		SetTextColor(FOREGROUND_INTENSITY | FOREGROUND_BLUE);
 		cout << "\n" << GetNameOfEntity(drinker->ID()) << ": " << "Home, sweet home";
 		CoutLock->Unlock();
-		drinker->ChangeLocation(saloon);
+		drinker->ChangeLocation(shack);
 	}
 }
 

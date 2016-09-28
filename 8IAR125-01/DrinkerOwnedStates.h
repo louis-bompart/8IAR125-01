@@ -38,8 +38,8 @@ private:
 	Fight() {}
 
 	//copy ctor and assignment should be private
-	Fight(const DrinkInTheBar&);
-	Fight& operator=(const DrinkInTheBar&);
+	Fight(const Fight&);
+	Fight& operator=(const Fight&);
 
 public:
 
@@ -63,8 +63,8 @@ private:
 	GoHomeAndRest() {}
 
 	//copy ctor and assignment should be private
-	GoHomeAndRest(const DrinkInTheBar&);
-	GoHomeAndRest& operator=(const DrinkInTheBar&);
+	GoHomeAndRest(const GoHomeAndRest&);
+	GoHomeAndRest& operator=(const GoHomeAndRest&);
 
 public:
 

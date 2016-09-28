@@ -39,6 +39,7 @@ public:
 
 	Drinker(int id) :m_Location(shack),
 		m_iThirst(0),
+		m_Life(5),
 		BaseGameEntity(id)
 
 	{
